@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function SubTaskCard(number) {
+    // A simple Sub Component to be used in the Creator and Edit Components
     return (
         <>
             <div className="flex flex-col ml-[120px]">

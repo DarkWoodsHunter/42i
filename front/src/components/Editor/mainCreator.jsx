@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useCreateTaskMutation } from "../../AppStore/ApiSlice";
 import SubTaskCard from "./SubTaskCard";
 import returnIcon from "../../Assets/returnicon.png";
@@ -8,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function MainCreator() {
+    //Component to Create and Add new tasks to the DB
+
     const [totalSubTaskt, setTotalSubTaskt] = useState();
     const [createTask] = useCreateTaskMutation();
 
@@ -17,6 +18,7 @@ export default function MainCreator() {
         setTotalSubTaskt(e.target.value);
     }
 
+    //Function to update and shown the <SubTaskCard> component
     function ShowSubTaskCard() {
         let item = [];
         for (let i = 0; i < totalSubTaskt; i++) {
@@ -24,11 +26,12 @@ export default function MainCreator() {
         }
         return item;
     }
-
+    //For the button to return to the main page
     function GoBack(){
         navigate("/");
     }
 
+    //Function to save all settings from the form and add the task to the DB
     const OnhandleSummit = async (e) => {
 
         e.preventDefault();
@@ -38,6 +41,7 @@ export default function MainCreator() {
         const Priority = e.target.elements.priority.value;
         const Estimate = e.target.elements.estimate.value;
         const SubTask = [];
+        //this is not efficient
         if (totalSubTaskt >= 1) {
             SubTask.push({
                 Status: e.target.elements.Status_1.value,
@@ -68,10 +72,11 @@ export default function MainCreator() {
                 Estimate: e.target.elements.estimate_5.value,
             })
         }
-
+        //If all required information is correct, create the task and show an alert to comfirm it, other way, throw an error alert
         if (Tittle != null && Tittle != "" && Status != null && Description != null && Description != "") {
             createTask({ Tittle, Description, Status, Priority, Estimate, SubTask });
-            alert("Task Created")
+            alert("Task Created");
+            GoBack();
         } else {
             alert("Error!")
         }

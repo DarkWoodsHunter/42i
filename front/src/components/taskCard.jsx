@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 export default function TaskCard({ data }) {
 
+    //A TaskCard show the basic information for every Task
+
+    //MongoDB saves "Dates" with a strict format. No this funtion translate the information to the format and timezone we want
     function TranslateDate(e) {
         const date = new Date(e);
         const options = {
@@ -16,6 +19,7 @@ export default function TaskCard({ data }) {
         return (date.toLocaleDateString("es-AR", options))
     }
 
+    //Check if the Tasks was updated post-creation, otherway, show creation Date as LastUpdateDate
     function setCurrentDate() {
         if (data.LastUpdateDate == undefined || data.LastUpdateDate == null || data.LastUpdateDate == "") {
             return TranslateDate(data.CreationDate)
@@ -35,6 +39,7 @@ export default function TaskCard({ data }) {
                 <span className="font-bold">Estimate: <span className="font-light">{data.Estimate}</span></span>
                 <span className="font-bold">Creation Date: <span className="font-light">{TranslateDate(data.CreationDate)}</span></span>
                 <span className="font-bold">LastUpdateDate: <span className="font-light">{setCurrentDate()}</span></span>
+                {/* Button to the Editor card, where more information is shown */}
                 <Link to={`/Edit?id=${data._id}`} className=" bg-red-400 hover:bg-red-500 border-2 border-red-600 rounded-lg shadow-lg w-[150px] text-center font-bold underline">Details</Link>
             </div >
         </>

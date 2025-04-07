@@ -1,3 +1,4 @@
+//Defining the Model of Tasks, so it can be used with MongoDB
 const { Schema, model } = require("mongoose")
 
 const TaskSchema = new Schema({

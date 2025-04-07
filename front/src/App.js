@@ -6,6 +6,7 @@ import MainCreator from "./components/Editor/mainCreator";
 function App() {
   return (
     <div className=" bg-blue-400">
+      {/* Defining what components will be shown in specific paths */ }
       <Routes>
         <Route exact path="/" element={<MainPage />}/>
         <Route path="/Edit" element={<MainEditor/>}/>

@@ -6,6 +6,9 @@ import SubTaskCard from "./SubTaskCard";
 import returnIcon from "../../Assets/returnicon.png"
 
 export default function MainEditor() {
+
+    //MainEditor is a modified version of the mainCreator component, to properly show exisiting information and added functions
+
     const [totalSubTaskt, setTotalSubTaskt] = useState();
     const [currentSubTasks, setCurrentSubTasks] = useState();
     const navigate = useNavigate();
@@ -15,10 +18,12 @@ export default function MainEditor() {
     let [status, setStatus] = useState();
     let [priority, setPriority] = useState();
 
+    //use SearchParms to get the Query ID and fetch the data of the specified task
     const [getQuery] = useSearchParams();
     let id = getQuery.get("id");
     const { data: TaskData, isError, isLoading, error } = useGetTaskByIDQuery(id);
 
+    //As soon the data is fetch, set necessary variables
     useEffect(() => {
         if (!isLoading) {
             setStatus(TaskData.Status)
@@ -29,9 +34,12 @@ export default function MainEditor() {
         }
     }, [isLoading, TaskData])
 
+    //While waiting for the data, Show a loading message
     if (isLoading) return <div>isLoading</div>
+    //If failed to retrieved the data, show a error message
     else if (isError) return <div>Error</div>
 
+    //MongoDB saves "Dates" with a strict format. No this funtion translate the information to the format and timezone we want
     function TranslateDate(e) {
         const date = new Date(e);
         const options = {
@@ -45,11 +53,13 @@ export default function MainEditor() {
         return (date.toLocaleDateString("es-AR", options))
     }
 
+
     function OnHandleSubTierChange(e) {
         e.preventDefault();
         setTotalSubTaskt(e.target.value);
     }
 
+    //Function to update and shown the <SubTaskCard> component
     function ShowSubTaskCard() {
         let item = [];
         for (let i = 0; i < totalSubTaskt; i++) {
@@ -63,6 +73,7 @@ export default function MainEditor() {
         return item;
     }
 
+    //Calculate the estimate for subTasks with the Status of "Backlog" and "Unstarted"
     function GetSubTaskEstimatePending() {
         let totalestimate = 0;
         for (let i = 0; i < totalSubTaskt; i++) {
@@ -72,7 +83,7 @@ export default function MainEditor() {
         }
         return totalestimate;
     }
-
+    //Calculate the estimate for subTasks with the Status of "Started"
     function GetSubTaskEstimateStarted() {
         let totalestimate = 0;
         for (let i = 0; i < totalSubTaskt; i++) {
@@ -82,7 +93,7 @@ export default function MainEditor() {
         }
         return totalestimate;
     }
-
+    //Calculate the estimate for all substasks
     function GetSubTaskEstimateTotal() {
         let totalestimate = 0;
         for (let i = 0; i < totalSubTaskt; i++) {
@@ -90,12 +101,13 @@ export default function MainEditor() {
         }
         return totalestimate;
     }
-
+    //Simple function to Delete the current task
     function DeleteTaskFunction(e) {
         deleteTask(e);
         alert("Deleted Task");
         navigate("/");
     }
+
 
     function setCurrentDate() {
         if (TaskData.LastUpdateDate == undefined || TaskData.LastUpdateDate == null || TaskData.LastUpdateDate == "") {
@@ -108,11 +120,11 @@ export default function MainEditor() {
         }
 
     }
-
+    //For the button to return to the main page
     function GoBack() {
         navigate("/");
     }
-
+    //Function to save all settings from the form and update the current task
     function OnHandleSummitEdit(e) {
         e.preventDefault();
         const Tittle = e.target.elements.Tittle.value.trim();
@@ -158,6 +170,7 @@ export default function MainEditor() {
         if (Tittle != null && Tittle != "" && Status != null && Description != null && Description != "") {
             editTask({ id, Tittle, Description, Status, Priority, Estimate, LastUpdateDate, SubTask });
             alert("Task Modified")
+            GoBack()
         } else {
             alert("Error!")
         }
