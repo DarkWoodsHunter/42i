@@ -19,6 +19,9 @@ Para activar el Front, se necesitara otra terminal en la carpeta Front ("../42i/
     npm I 
     npm start
 ```
+
+Abrir en el Navegador, la url "http://localhost:3000/"
+
 ## Contenidos
 
 - Front-End
@@ -31,7 +34,8 @@ Para activar el Front, se necesitara otra terminal en la carpeta Front ("../42i/
     - Coneccion a la BD mongo hacia la nube.
     - Definir un Modelo para la BD.
     - CRUD API para cada operacion.
-    - 
+    - Tests Simples
+
 ## Herramientas Utilizadas
 
 - Lenguage JavaScript
