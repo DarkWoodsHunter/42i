@@ -2,7 +2,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest"
+    "test": "set NODE_OPTIONS=--experimental-vm-modules && jest"
   },
   "dependencies": {
     "cors": "^2.8.5",
