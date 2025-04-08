@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 
 //Custom access code to the DB
+const uro = "mongodb+srv://aserrods:Zuy2V1xK8M362G2k@cluster0.yxtkaek.mongodb.net/42i_MondoDB?retryWrites=true&w=majority&appName=Cluster0"
 const uri = "mongodb+srv://ImperialUser:A159753eW@cluster0.sh4t9uz.mongodb.net/42i_MondoDB?retryWrites=true&w=majority&appName=Cluster0";
 
 const db = mongoose.connection;

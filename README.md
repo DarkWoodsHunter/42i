@@ -53,3 +53,11 @@ Abrir en el Navegador, la url "http://localhost:3000/"
     - Cors
     - MongoDB
     - Mongoose
+
+## Tests
+
+Para ejecutar tests, ejecutar el siguiente codigo en "../42I/Back"
+
+```bash
+    npm test
+```
